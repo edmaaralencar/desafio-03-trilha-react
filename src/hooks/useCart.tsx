@@ -57,7 +57,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
         toast.error("Erro na remoção do produto");
         return
       }
-      
+
       const updatedCart = cart.filter((cartItem) => cartItem.id !== productId);
 
       localStorage.setItem("@RocketShoes:cart", JSON.stringify(updatedCart));
@@ -73,6 +73,8 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
   }: UpdateProductAmount) => {
     try {
       const { data } = await api.get(`/stock/${productId}`);
+
+      const product = cart.find(product => product.id === productId);
 
       if (amount < 1) return;
 
